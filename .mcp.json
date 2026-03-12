@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "config-test": {
+      "command": "node",
+      "args": [".claude/mcp-servers/config-test-server.js"]
+    }
+  }
+}
