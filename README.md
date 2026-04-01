@@ -55,12 +55,14 @@ Type `/legacy-test` using the IDE's slash command menu. FERRET appearing in the 
 | CORMORANT — `.claude/skills/`            | ✅           | ✅       | ✅        | ✅              |
 | GARNET — `.claude/agents/`               | ✅           | ✅       | ❌        | ✅              |
 | PELICAN — `.mcp.json`                    | ✅           | ❌       | ❌        | ❌              |
-| FERRET — `.claude/commands/`             | ✅           | ✅       | ❌        | ❌              |
+| FERRET — `.claude/commands/`             | ✅           | ✅       | ❌        | ✅³             |
 | LARKSPUR — `docs/CLAUDE.md`              | ✅²          | ✅¹      | ❌        | ❌              |
 
 > ¹ **Cursor on-demand loading:** WISTERIA and LARKSPUR are not auto-loaded at session start. Instead, Cursor surfaces them via its "relevant cursor rules" system when files in the corresponding directory are accessed. The words appear, but the loading mechanism is on-demand rather than pre-loaded.
 >
 > ² **Claude Code on-demand loading:** LARKSPUR (directory-scoped `docs/CLAUDE.md`) is loaded on-demand when files in that directory are accessed, not at session start. WISTERIA (`.claude/CLAUDE.md`) is auto-loaded at session start.
+>
+> ³ **GitHub Copilot slash commands:** FERRET is detected when `/legacy-test` is invoked, but this works via the AI agent searching for `.claude/commands/legacy-test.md` rather than the IDE natively registering slash commands from `.claude/commands/`. The command is not surfaced in autocomplete.
 
 ## Repository structure
 
