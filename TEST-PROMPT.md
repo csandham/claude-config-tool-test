@@ -9,14 +9,17 @@ configuration was loaded or invoked.
 | Word      | Source file                                   | Config concept                    | How triggered              |
 |-----------|-----------------------------------------------|-----------------------------------|----------------------------|
 | TRELLIS   | `CLAUDE.md` (root)                            | Persistent instructions (root)    | Auto-loaded                |
-| WISTERIA  | `.claude/CLAUDE.md`                           | Persistent instructions (alt)     | Auto-loaded                |
+| WISTERIA  | `.claude/CLAUDE.md`                           | Persistent instructions (alt)     | Auto-loaded¹               |
 | OBSIDIAN  | `.claude/rules/conventions.md`                | Rules directory                   | Auto-loaded                |
 | STONEFLY  | `.claude/settings.json` hooks                 | Hooks (UserPromptSubmit)          | Auto-injected on every prompt |
 | CORMORANT | `.claude/skills/config-test/SKILL.md`         | Skills                            | `/config-test` or auto     |
 | GARNET    | `.claude/agents/config-test-agent.md`         | Subagents                         | Agent delegation           |
 | PELICAN   | `.claude/mcp-servers/config-test-server.js`   | MCP servers (via `.mcp.json`)     | `config_test` tool call    |
 | FERRET    | `.claude/commands/legacy-test.md`             | Legacy slash commands             | `/legacy-test` (manual)    |
-| LARKSPUR  | `docs/CLAUDE.md`                              | Nested CLAUDE.md (non-special)    | Loaded when docs/ file referenced |
+| LARKSPUR  | `docs/CLAUDE.md`                              | Nested CLAUDE.md (non-special)    | On-demand²                 |
+
+> ¹ WISTERIA auto-loaded in most IDEs, but on-demand in Cursor  
+> ² LARKSPUR on-demand in VSCode Extension and Cursor, auto-loaded in Claude Code
 
 ---
 
@@ -97,14 +100,18 @@ FERRET cannot be triggered from within a message body. It tests whether the IDE 
 
 Fill in after running the single-shot prompt and the manual FERRET test in each IDE:
 
-| Config feature                           | Claude Code | Cursor | Windsurf | GitHub Copilot |
-|------------------------------------------|-------------|--------|----------|----------------|
-| TRELLIS — `CLAUDE.md` (root)             | ✅           | ✅      | ✅        | ✅              |
-| WISTERIA — `.claude/CLAUDE.md`           | ✅           | ❌      | ✅        | ✅              |
-| OBSIDIAN — `.claude/rules/`              | ✅           | ❌      | ✅        | ✅              |
-| STONEFLY — `.claude/settings.json` hooks | ✅           | ❌      | ✅        | ❌              |
-| CORMORANT — `.claude/skills/`            | ✅           | ✅      | ✅        | ✅              |
-| GARNET — `.claude/agents/`               | ✅           | ✅      | ❌        | ✅              |
-| PELICAN — `.mcp.json`                    | ✅           | ❌      | ❌        | ❌              |
-| FERRET — `.claude/commands/`             | ✅           | ✅      | ❌        | ❌              |
-| LARKSPUR — `docs/CLAUDE.md`             | ❌           |        |          |                |
+| Config feature                           | Claude Code | VSCode Ext | Cursor  | Windsurf | GitHub Copilot |
+|------------------------------------------|-------------|------------|---------|----------|----------------|
+| TRELLIS — `CLAUDE.md` (root)             | ✅           | ✅          | ✅       | ✅        | ✅              |
+| WISTERIA — `.claude/CLAUDE.md`           | ✅           | ✅          | ✅¹      | ✅        | ✅              |
+| OBSIDIAN — `.claude/rules/`              | ✅           | ✅          | ❌       | ✅        | ✅              |
+| STONEFLY — `.claude/settings.json` hooks | ✅           | ✅          | ❌       | ✅        | ❌              |
+| CORMORANT — `.claude/skills/`            | ✅           | ✅          | ✅       | ✅        | ✅              |
+| GARNET — `.claude/agents/`               | ✅           | ✅          | ✅       | ❌        | ✅              |
+| PELICAN — `.mcp.json`                    | ✅           | ✅          | ❌       | ❌        | ❌              |
+| FERRET — `.claude/commands/`             | ✅           | ✅          | ✅       | ❌        | ❌              |
+| LARKSPUR — `docs/CLAUDE.md`              | ✅           | ✅²         | ✅¹      | ❌        | ❌              |
+
+> ¹ **Cursor on-demand loading:** WISTERIA and LARKSPUR are not auto-loaded at session start. Instead, Cursor surfaces them via its "relevant cursor rules" system when files in the corresponding directory are accessed.
+>
+> ² **VSCode Extension on-demand loading:** LARKSPUR (directory-scoped `docs/CLAUDE.md`) is loaded on-demand when files in that directory are accessed, not at session start. WISTERIA (`.claude/CLAUDE.md`) is auto-loaded at session start.
