@@ -46,21 +46,21 @@ Type `/legacy-test` using the IDE's slash command menu. FERRET appearing in the 
 
 ## Results
 
-| Config feature                           | Claude Code | VSCode Ext | Cursor  | Windsurf | GitHub Copilot |
-|------------------------------------------|-------------|------------|---------|----------|----------------|
-| TRELLIS — `CLAUDE.md` (root)             | ✅           | ✅          | ✅       | ✅        | ✅              |
-| WISTERIA — `.claude/CLAUDE.md`           | ✅           | ✅          | ✅¹      | ✅        | ✅              |
-| OBSIDIAN — `.claude/rules/`              | ✅           | ✅          | ❌       | ✅        | ✅              |
-| STONEFLY — `.claude/settings.json` hooks | ✅           | ✅          | ❌       | ✅        | ❌              |
-| CORMORANT — `.claude/skills/`            | ✅           | ✅          | ✅       | ✅        | ✅              |
-| GARNET — `.claude/agents/`               | ✅           | ✅          | ✅       | ❌        | ✅              |
-| PELICAN — `.mcp.json`                    | ✅           | ✅          | ❌       | ❌        | ❌              |
-| FERRET — `.claude/commands/`             | ✅           | ✅          | ✅       | ❌        | ❌              |
-| LARKSPUR — `docs/CLAUDE.md`              | ✅           | ✅²         | ✅¹      | ❌        | ❌              |
+| Config feature                           | Claude Code | Cursor  | Windsurf | GitHub Copilot |
+|------------------------------------------|-------------|---------|----------|----------------|
+| TRELLIS — `CLAUDE.md` (root)             | ✅           | ✅       | ✅        | ✅              |
+| WISTERIA — `.claude/CLAUDE.md`           | ✅           | ✅¹      | ✅        | ✅              |
+| OBSIDIAN — `.claude/rules/`              | ✅           | ❌       | ✅        | ✅              |
+| STONEFLY — `.claude/settings.json` hooks | ✅           | ❌       | ✅        | ❌              |
+| CORMORANT — `.claude/skills/`            | ✅           | ✅       | ✅        | ✅              |
+| GARNET — `.claude/agents/`               | ✅           | ✅       | ❌        | ✅              |
+| PELICAN — `.mcp.json`                    | ✅           | ❌       | ❌        | ❌              |
+| FERRET — `.claude/commands/`             | ✅           | ✅       | ❌        | ❌              |
+| LARKSPUR — `docs/CLAUDE.md`              | ✅²          | ✅¹      | ❌        | ❌              |
 
 > ¹ **Cursor on-demand loading:** WISTERIA and LARKSPUR are not auto-loaded at session start. Instead, Cursor surfaces them via its "relevant cursor rules" system when files in the corresponding directory are accessed. The words appear, but the loading mechanism is on-demand rather than pre-loaded.
 >
-> ² **VSCode Extension on-demand loading:** LARKSPUR (directory-scoped `docs/CLAUDE.md`) is loaded on-demand when files in that directory are accessed, not at session start. WISTERIA (`.claude/CLAUDE.md`) is auto-loaded at session start.
+> ² **Claude Code on-demand loading:** LARKSPUR (directory-scoped `docs/CLAUDE.md`) is loaded on-demand when files in that directory are accessed, not at session start. WISTERIA (`.claude/CLAUDE.md`) is auto-loaded at session start.
 
 ## Repository structure
 
