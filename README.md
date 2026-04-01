@@ -18,6 +18,7 @@ Each magic word maps to one configuration concept:
 | GARNET    | `.claude/agents/config-test-agent.md`    | Subagents                       |
 | PELICAN   | `.claude/mcp-servers/config-test-server.js` | MCP servers (via `.mcp.json`) |
 | FERRET    | `.claude/commands/legacy-test.md`        | Legacy slash commands           |
+| LARKSPUR  | `docs/CLAUDE.md`                         | Nested CLAUDE.md (non-special)  |
 
 If a word appears in the AI's response, the corresponding config layer was loaded.
 
@@ -29,11 +30,15 @@ The MCP server test requires installing dependencies first:
 cd .claude/mcp-servers && npm install
 ```
 
+### Cursor
+
+Cursor requires the **"Include third-party Plugins, Skills, and other configs"** setting to be enabled for `.claude/` configuration files to be loaded. Without this setting, most magic words will not be detected.
+
 ## Running the test
 
-### Single-shot test (7 of 8 magic words)
+### Single-shot test (8 of 9 magic words)
 
-Paste the prompt from [TEST-PROMPT.md](TEST-PROMPT.md) into the IDE chat. It tests TRELLIS, WISTERIA, OBSIDIAN, STONEFLY, CORMORANT, GARNET, and PELICAN in one shot.
+Paste the prompt from [TEST-PROMPT.md](TEST-PROMPT.md) into the IDE chat. It tests TRELLIS, WISTERIA, OBSIDIAN, STONEFLY, CORMORANT, GARNET, PELICAN, and LARKSPUR in one shot.
 
 ### Manual test: FERRET
 
@@ -41,16 +46,17 @@ Type `/legacy-test` using the IDE's slash command menu. FERRET appearing in the 
 
 ## Results
 
-| Config feature                           | Claude Code | Cursor | Windsurf | GitHub Copilot |
-|------------------------------------------|-------------|--------|----------|----------------|
-| TRELLIS — `CLAUDE.md` (root)             | ✅           | ✅      | ✅        | ✅              |
-| WISTERIA — `.claude/CLAUDE.md`           | ✅           | ❌      | ✅        | ✅              |
-| OBSIDIAN — `.claude/rules/`              | ✅           | ❌      | ✅        | ✅              |
-| STONEFLY — `.claude/settings.json` hooks | ✅           | ❌      | ✅        | ❌              |
-| CORMORANT — `.claude/skills/`            | ✅           | ✅      | ✅        | ✅              |
-| GARNET — `.claude/agents/`               | ✅           | ✅      | ❌        | ✅              |
-| PELICAN — `.mcp.json`                    | ✅           | ❌      | ❌        | ❌              |
-| FERRET — `.claude/commands/`             | ✅           | ✅      | ❌        | ❌              |
+| Config feature                           | Claude Code | VSCode Ext | Cursor | Windsurf | GitHub Copilot |
+|------------------------------------------|-------------|------------|--------|----------|----------------|
+| TRELLIS — `CLAUDE.md` (root)             | ✅           | ✅          | ✅      | ✅        | ✅              |
+| WISTERIA — `.claude/CLAUDE.md`           | ✅           | ✅          | ❌      | ✅        | ✅              |
+| OBSIDIAN — `.claude/rules/`              | ✅           | ✅          | ❌      | ✅        | ✅              |
+| STONEFLY — `.claude/settings.json` hooks | ✅           | ✅          | ❌      | ✅        | ❌              |
+| CORMORANT — `.claude/skills/`            | ✅           | ✅          | ✅      | ✅        | ✅              |
+| GARNET — `.claude/agents/`               | ✅           | ✅          | ✅      | ❌        | ✅              |
+| PELICAN — `.mcp.json`                    | ✅           | ✅          | ❌      | ❌        | ❌              |
+| FERRET — `.claude/commands/`             | ✅           | ✅          | ✅      | ❌        | ❌              |
+| LARKSPUR — `docs/CLAUDE.md`              | ✅           | ✅          | ❌      | ❌        | ❌              |
 
 ## Repository structure
 
@@ -59,6 +65,8 @@ Type `/legacy-test` using the IDE's slash command menu. FERRET appearing in the 
 ├── CLAUDE.md                          # Root persistent instructions (TRELLIS)
 ├── TEST-PROMPT.md                     # Test prompts and results table
 ├── .mcp.json                          # MCP server registration
+├── docs/
+│   └── CLAUDE.md                      # Non-special subdirectory (LARKSPUR)
 └── .claude/
     ├── CLAUDE.md                      # Alt persistent instructions (WISTERIA)
     ├── settings.json                  # Hooks config (STONEFLY)

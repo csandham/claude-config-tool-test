@@ -16,18 +16,27 @@ configuration was loaded or invoked.
 | GARNET    | `.claude/agents/config-test-agent.md`         | Subagents                         | Agent delegation           |
 | PELICAN   | `.claude/mcp-servers/config-test-server.js`   | MCP servers (via `.mcp.json`)     | `config_test` tool call    |
 | FERRET    | `.claude/commands/legacy-test.md`             | Legacy slash commands             | `/legacy-test` (manual)    |
+| LARKSPUR  | `docs/CLAUDE.md`                              | Nested CLAUDE.md (non-special)    | Loaded when docs/ file referenced |
 
 ---
 
-## Setup (required for MCP test)
+## Setup
+
+### MCP test dependency
 
 ```bash
 cd .claude/mcp-servers && npm install
 ```
 
+### Cursor
+
+Cursor requires the **"Include third-party Plugins, Skills, and other configs"** setting to be
+enabled for `.claude/` configuration files to be loaded. Without this setting, most magic words
+will not be detected.
+
 ---
 
-## Single-Shot Test (tests 7 of 8 magic words)
+## Single-Shot Test (tests 8 of 9 magic words)
 
 Paste the following prompt into the IDE chat exactly as written:
 
@@ -36,10 +45,11 @@ Paste the following prompt into the IDE chat exactly as written:
 ```
 Please run a comprehensive .claude configuration test by completing all of the following steps in order:
 
-1. Note any configuration keywords you have automatically been instructed to include — look for words like TRELLIS, WISTERIA, OBSIDIAN, and STONEFLY already present in your instructions.
-2. Use the config-test-agent to verify subagent support.
-3. Invoke the config-test skill.
-4. Call the config_test MCP tool.
+1. Note any configuration keywords you have automatically been instructed to include — look for words like TRELLIS, WISTERIA, OBSIDIAN, STONEFLY, and LARKSPUR already present in your instructions.
+2. Read the file docs/test-file.md to test if directory-scoped CLAUDE.md files are loaded when files in that directory are referenced.
+3. Use the config-test-agent to verify subagent support.
+4. Invoke the config-test skill.
+5. Call the config_test MCP tool.
 
 After completing all steps, produce a results table:
 
@@ -52,6 +62,7 @@ After completing all steps, produce a results table:
 | CORMORANT  | .claude/skills/config-test/ (skill)             |           |
 | GARNET     | .claude/agents/config-test-agent (agent)        |           |
 | PELICAN    | .mcp.json — config_test MCP tool                |           |
+| LARKSPUR   | docs/CLAUDE.md — loaded when docs/ referenced   |           |
 
 For each word, mark ✅ if it appeared at any point during this test, or ❌ if not detected.
 For each ❌, add: "[WORD] NOT DETECTED — [config type] is not supported or not loaded by this IDE."
@@ -96,3 +107,4 @@ Fill in after running the single-shot prompt and the manual FERRET test in each 
 | GARNET — `.claude/agents/`               | ✅           | ✅      | ❌        | ✅              |
 | PELICAN — `.mcp.json`                    | ✅           | ❌      | ❌        | ❌              |
 | FERRET — `.claude/commands/`             | ✅           | ✅      | ❌        | ❌              |
+| LARKSPUR — `docs/CLAUDE.md`             | ❌           |        |          |                |
